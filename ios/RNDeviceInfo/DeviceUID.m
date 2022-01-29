@@ -47,10 +47,10 @@ NSString * const UIDKey = @"deviceUID";
     At last, the UID is persisted if needed to.
  */
 - (NSString *)uid {
-    if (!_uid) _uid = [[self class] valueForKeychainKey:UIDKey service:UIDKey];
-    if (!_uid) _uid = [[self class] valueForUserDefaultsKey:UIDKey];
-    if (!_uid) _uid = [[self class] appleIFV];
-    if (!_uid) _uid = [[self class] randomUUID];
+    if (!_uid || [_uid length] == 0) _uid = [[self class] valueForKeychainKey:UIDKey service:UIDKey];
+    if (!_uid || [_uid length] == 0) _uid = [[self class] valueForUserDefaultsKey:UIDKey];
+    if (!_uid || [_uid length] == 0) _uid = [[self class] appleIFV];
+    if (!_uid || [_uid length] == 0) _uid = [[self class] randomUUID];
     [self saveIfNeed];
     return _uid;
 }
